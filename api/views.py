@@ -21,7 +21,7 @@ def ApiOverview(request):
     return Response(api_urls)
 
 
-@api_view(['POST', 'GET'])
+@api_view(['POST'])
 def add_items(request):
     item = ItemSerializer(data=request.data)
 
