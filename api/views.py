@@ -22,7 +22,7 @@ def ApiOverview(request):
 
 
 @api_view(['POST'])
-def add_items(request):
+def add_item(request):
     item = ItemSerializer(data=request.data)
 
     # validating for already existing data
@@ -34,6 +34,22 @@ def add_items(request):
         return Response(item.data)
     else:
         return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+# @api_view(['POST'])
+# def add_items(request):
+#     for data in request.data:
+#         add_item(data)
+#     return
+
+
+@api_view(['POST'])
+def add_items(request, self, *args, **kwargs):
+    serializer = self.get_serializer(data=request.data, many=isinstance(request.data, list))
+    serializer.is_valid(raise_exception=True)
+    self.perform_create(serializer)
+    headers = self.get_success_headers(serializer.data)
+    return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
 
 @api_view(['GET'])
@@ -75,4 +91,3 @@ def delete_item(request, pk):
     item = get_object_or_404(Item, pk=pk)
     item.delete()
     return Response(status=status.HTTP_202_ACCEPTED)
-

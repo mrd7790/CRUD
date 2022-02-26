@@ -74,10 +74,10 @@ WSGI_APPLICATION = 'CRUD.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'djongo',
-    #     'NAME': 'admin',
-    # }
+    'default': {
+        'ENGINE': 'djongo',
+        'NAME': 'admin',
+    }
 
     # 'default': {
     #     'ENGINE': 'djongo',
@@ -89,16 +89,16 @@ DATABASES = {
     #     }
     # }
 
-    'default': {
-        'ENGINE': 'djongo',
-        "CLIENT": {
-           "name": 'test',
-           "host": 'mongodb+srv://admin:admin@clustertest.8k5eb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
-           "username": 'admin',
-           "password": 'admin',
-           "authMechanism": "SCRAM-SHA-1",
-        },
-    }
+    # 'default': {
+    #     'ENGINE': 'djongo',
+    #     "CLIENT": {
+    #        "name": 'test',
+    #        "host": 'mongodb+srv://admin:admin@clustertest.8k5eb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+    #        "username": 'admin',
+    #        "password": 'admin',
+    #        "authMechanism": "SCRAM-SHA-1",
+    #     },
+    # }
 
 }
 
