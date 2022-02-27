@@ -1,3 +1,5 @@
+import json
+
 from rest_framework.decorators import api_view
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
@@ -24,11 +26,12 @@ def ApiOverview(request):
 @api_view(['POST'])
 def add_item(request):
     item = ItemSerializer(data=request.data)
-
+    id_exists = request.data.get('id', 0)
     # validating for already existing data
-    if Item.objects.filter(**request.data).exists():
-        raise serializers.ValidationError('This data already exists')
-
+    if id_exists:
+        error_message = 'This payload cannot contain (id)'
+        return Response(data=error_message,
+                        status=status.HTTP_400_BAD_REQUEST)
     if item.is_valid():
         item.save()
         return Response(item.data)
