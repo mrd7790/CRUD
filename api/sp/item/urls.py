@@ -7,7 +7,7 @@ item_url_patterns = [
     path('item/create', views.add_item, name='add_item'),
     path('item/update/<int:pk>', views.update_item, name='update_item'),
     path('item/delete/<str:pk>', views.delete_item, name='delete-items'),
-    path('findAll', views.view_items, name='view_items'),
+    path('item/getAll', views.view_items, name='view_items'),
 ]
 
 __exports__ = item_url_patterns

@@ -76,7 +76,7 @@ WSGI_APPLICATION = 'CRUD.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
-        'NAME': 'admin',
+        'NAME': 'sp_items_db',
     }
 
     # 'default': {
