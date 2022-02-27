@@ -10,12 +10,12 @@ from rest_framework import status
 @api_view()
 def ApiOverview(request):
     api_urls = {
-        'all_items': '/all',
-        'Search by Category': '/?category=category_name',
-        'Search by Subcategory': '/?subcategory=category_name',
-        'Add': '/create',
-        'Update': '/update/pk',
-        'Delete': '/item/pk/delete'
+        'all_items': 'item/getAll',
+        # 'Search by Category': '/?category=category_name',
+        # 'Search by Subcategory': '/?subcategory=category_name',
+        'Add': '/item/create',
+        'Update': '/item/update/pk',
+        'Delete': '/item/delete/pk'
     }
 
     return Response(api_urls)
