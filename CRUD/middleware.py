@@ -17,7 +17,7 @@ class SimpleMiddleware:
         if response.status_code != 200:
             data = {
                 'status': str(response.status_code),
-                'info': str(response.reason_phrase),
+                'message': str(response.reason_phrase),
             }
             return JsonResponse(data)
 

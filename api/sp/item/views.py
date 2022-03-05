@@ -94,3 +94,10 @@ def delete_item(request, pk):
     item = get_object_or_404(Item, pk=pk)
     item.delete()
     return Response(status=status.HTTP_202_ACCEPTED)
+
+
+@api_view(['GET'])
+def test(request):
+    a = 1 / 0
+
+    return Response()
