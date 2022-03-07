@@ -1,4 +1,4 @@
-from django.http import Http404, HttpResponse
+from django.http import Http404, HttpResponse, JsonResponse
 from rest_framework.exceptions import APIException
 from rest_framework.views import exception_handler
 from rest_framework import status
@@ -23,4 +23,20 @@ def custom_exception_handler(exc, context):
         response.data['status_text'] = response.status_text
         response.data['exception'] = exc.__class__.__name__
 
+    return response
+
+
+def error_404(request, exception):
+    message = 'The end point is not found'
+
+    response = JsonResponse(data={'message': message, 'status_code': 404})
+    response.status_code = 404
+    return response
+
+
+def error_500(request):
+    message = 'An error occurred, its on us'
+
+    response = JsonResponse(data={'message': message, 'status_code': 500})
+    response.status_code = 500
     return response

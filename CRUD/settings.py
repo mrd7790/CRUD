@@ -22,9 +22,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-uwfg@*i9+2&3gw5k7(bnt@3%1@8_y7jy-s3kqm75+2z1nh$5zh'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -48,7 +48,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'CRUD.middleware.SimpleMiddleware',
+    # 'CRUD.middleware.SimpleMiddleware',
 ]
 
 ROOT_URLCONF = 'CRUD.urls'
@@ -144,5 +144,5 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
-    'EXCEPTION_HANDLER': 'CRUD.exception_handler.custom_exception_handler'
+    # 'EXCEPTION_HANDLER': 'CRUD.exception_handler.custom_exception_handler'
 }
