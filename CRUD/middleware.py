@@ -1,3 +1,5 @@
+import http.client
+
 from django.http import JsonResponse
 
 
@@ -14,11 +16,20 @@ class SimpleMiddleware:
 
         # Code to be executed for each request/response after
         # the view is called.
-        if response.status_code != 200:
+
+        # # error message
+        # if response.status_code != 200:
+        #     data = {
+        #         'status': str(response.status_code),
+        #         'message': str(response.reason_phrase),
+        #     }
+        #     return JsonResponse(data)
+
+        if response.status_code == 404:
             data = {
-                'status': str(response.status_code),
-                'message': str(response.reason_phrase),
-            }
+                    'status': str(response.status_code),
+                    'message': str(response.reason_phrase),
+                }
             return JsonResponse(data)
 
         return response
