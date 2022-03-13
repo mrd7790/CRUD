@@ -10,7 +10,7 @@ item_url_patterns = [
     path('item/<str:pk>/', views.update_item, name='update_item'),
     path('item/<str:pk>/', views.patch_item, name='patch_item'),
     path('item/<str:pk>/', views.delete_item, name='delete-item'),
-    path('item/test', views.test, name='test'),
+    path('item/test/test', views.test, name='test'),
 ]
 
 __exports__ = item_url_patterns

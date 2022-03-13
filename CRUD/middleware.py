@@ -3,7 +3,7 @@ import http.client
 from django.http import JsonResponse
 
 
-class SimpleMiddleware:
+class ExceptionHandlerMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
         # One-time configuration and initialization.

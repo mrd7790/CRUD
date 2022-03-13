@@ -36,7 +36,7 @@ def add_item(request):
         item.save()
         return Response(item.data)
     else:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+        return Response(status=status.HTTP_406_NOT_ACCEPTABLE)
 
 
 @api_view(['POST'])
@@ -56,6 +56,7 @@ def get_item(request, pk):
         return Response(data.data)
     else:
         return Response(status=status.HTTP_404_NOT_FOUND)
+    # return Response({'message': "Wrong Id!", 'status_code': 406}, status=status.HTTP_406_NOT_ACCEPTABLE)
 
 
 @api_view(['GET'])
