@@ -1,11 +1,8 @@
-import json
-
 from rest_framework.decorators import api_view
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 from .models import Item
 from .serializers import ItemSerializer
-from rest_framework import serializers
 from rest_framework import status
 
 
@@ -48,8 +45,19 @@ def add_items(request, self, *args, **kwargs):
     return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
 
-@api_view(['GET'])
-def get_item(request, pk):
+@api_view(['GET', 'PUT', 'PATCH', 'DELETE'])
+def item_manipulate(request, pk):
+    if request.method == 'GET':
+        return get_item(request, pk)
+    elif request.method == 'PUT':
+        return update_item(request, pk)
+    elif request.method == 'PATCH':
+        return patch_item(request, pk)
+    elif request.method == 'delete':
+        return delete_item(request, pk)
+
+
+def get_item(pk):
     item = get_object_or_404(Item, pk=pk)
     if item:
         data = ItemSerializer(item)
@@ -57,6 +65,32 @@ def get_item(request, pk):
     else:
         return Response(status=status.HTTP_404_NOT_FOUND)
     # return Response({'message': "Wrong Id!", 'status_code': 406}, status=status.HTTP_406_NOT_ACCEPTABLE)
+
+
+def update_item(request, pk):
+    item = Item.objects.get(pk=pk)
+    data = ItemSerializer(instance=item, data=request.data)
+    if data.is_valid():
+        data.save()
+        return Response(data.data)
+    else:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+def patch_item(request, pk):
+    item = Item.objects.get(pk=pk)
+    data = ItemSerializer(instance=item, data=request.data, partial=True)
+    if data.is_valid():
+        data.save()
+        return Response(data.data)
+    else:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+def delete_item(request, pk):
+    item = get_object_or_404(Item, pk=pk)
+    item.delete()
+    return Response(status=status.HTTP_202_ACCEPTED)
 
 
 @api_view(['GET'])
@@ -74,38 +108,3 @@ def get_all_items(request):
         return Response(data.data)
     else:
         return Response(status=status.HTTP_404_NOT_FOUND)
-
-
-@api_view(['PUT'])
-def update_item(request, pk):
-    item = Item.objects.get(pk=pk)
-    data = ItemSerializer(instance=item, data=request.data)
-    if data.is_valid():
-        data.save()
-        return Response(data.data)
-    else:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-
-
-@api_view(['PATCH'])
-def patch_item(request, pk):
-    item = Item.objects.get(pk=pk)
-    data = ItemSerializer(instance=item, data=request.data, partial=True)
-    if data.is_valid():
-        data.save()
-        return Response(data.data)
-    else:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-
-
-@api_view(['DELETE'])
-def delete_item(request, pk):
-    item = get_object_or_404(Item, pk=pk)
-    item.delete()
-    return Response(status=status.HTTP_202_ACCEPTED)
-
-
-@api_view(['GET'])
-def test(request):
-    a = 1 / 0
-    return Response()
