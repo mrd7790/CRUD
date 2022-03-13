@@ -2,7 +2,7 @@ from django.http import Http404, HttpResponse, JsonResponse
 from rest_framework.exceptions import APIException
 from rest_framework.views import exception_handler
 from rest_framework import status
-from CRUD.settings import DEBUG
+from core.settings import DEBUG
 from django.template import loader, RequestContext, Context
 from django.core.exceptions import PermissionDenied
 

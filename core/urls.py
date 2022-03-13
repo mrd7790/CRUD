@@ -27,5 +27,5 @@ urlpatterns += [
    re_path(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 ]
 
-handler404 = 'CRUD.exception_handler.error_404'
-handler500 = 'CRUD.exception_handler.error_500'
+handler404 = 'core.exception_handler.error_404'
+handler500 = 'core.exception_handler.error_500'
