@@ -10,7 +10,7 @@ from rest_framework import status
 
 
 @api_view()
-def ApiOverview(request):
+def api_over_view(request):
     api_urls = {
         'all_items': 'item/getAll',
         # 'Search by Category': '/?category=category_name',
@@ -39,13 +39,6 @@ def add_item(request):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
 
-# @api_view(['POST'])
-# def add_items(request):
-#     for data in request.data:
-#         add_item(data)
-#     return
-
-
 @api_view(['POST'])
 def add_items(request, self, *args, **kwargs):
     serializer = self.get_serializer(data=request.data, many=isinstance(request.data, list))
@@ -56,7 +49,18 @@ def add_items(request, self, *args, **kwargs):
 
 
 @api_view(['GET'])
-def view_items(request):
+def get_item(request, pk):
+    item = get_object_or_404(Item, pk=pk)
+    if item:
+        data = ItemSerializer(item)
+        return Response(data.data)
+    else:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+@api_view(['GET'])
+def get_all_items(request):
+    print('get all items')
     # checking for the parameters from the URL
     if request.query_params:
         items = Item.objects.filter(**request.query_param.dict())
@@ -71,17 +75,21 @@ def view_items(request):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
 
-# @api_view(['GET'])
-# def view_items(request):
-#     items = Item.objects.all()
-#     serializer = ItemSerializer(items, many=True)
-#     return Response(serializer.data)
-
-
-@api_view(['POST'])
+@api_view(['PUT'])
 def update_item(request, pk):
     item = Item.objects.get(pk=pk)
     data = ItemSerializer(instance=item, data=request.data)
+    if data.is_valid():
+        data.save()
+        return Response(data.data)
+    else:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+@api_view(['PATCH'])
+def patch_item(request, pk):
+    item = Item.objects.get(pk=pk)
+    data = ItemSerializer(instance=item, data=request.data, partial=True)
     if data.is_valid():
         data.save()
         return Response(data.data)
@@ -99,5 +107,4 @@ def delete_item(request, pk):
 @api_view(['GET'])
 def test(request):
     a = 1 / 0
-
     return Response()
