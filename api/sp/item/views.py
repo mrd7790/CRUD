@@ -1,7 +1,7 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from .item_service import get_item, update_item, patch_item, delete_item
+from .functions import get_item, update_item, patch_item, delete_item
 from .models import Item
 from .serializers import ItemSerializer
 from rest_framework import status
