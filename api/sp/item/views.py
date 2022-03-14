@@ -66,6 +66,7 @@ def get_all_items(request):
         items = Item.objects.filter(**request.query_param.dict())
     else:
         items = Item.objects.all()
+        print(items)
 
     # if there is something in items else raise error
     if items:
