@@ -1,0 +1,17 @@
+version: '3.5'
+services:
+  app:
+    build:
+      context: .
+    ports:
+      - "8001:8000"
+    links:
+      - mongodb
+  mongodb:
+    image: mongo
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=password
+    volumes:
+      - "/data/db:/data"

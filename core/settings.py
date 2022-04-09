@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+# Build paths inside the project like this: BASE_DIR / 'subdir'.K
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
@@ -79,29 +79,14 @@ DATABASES = {
     'default': {
         'ENGINE': 'djongo',
         'NAME': 'sp_items_db',
+        # # client for mongo docker
+        'CLIENT': {
+            "username": 'admin',
+            "password": 'password',
+            'host': 'mongodb',
+            'port': 27017,
+        }
     }
-
-    # 'default': {
-    #     'ENGINE': 'djongo',
-    #     'CLIENT': {
-    #         "host": "mongodb+srv://admin:<admin>@clustertest.8k5eb.mongodb.net/myFirstDatabase?retryWrites=true"
-    #                 "&w=majority "
-    #         , "name": "test",
-    #         "authMechanism": "SCRAM-SHA-1"  # For atlas cloud db
-    #     }
-    # }
-
-    # 'default': {
-    #     'ENGINE': 'djongo',
-    #     "CLIENT": {
-    #        "name": 'test',
-    #        "host": 'mongodb+srv://admin:admin@clustertest.8k5eb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
-    #        "username": 'admin',
-    #        "password": 'admin',
-    #        "authMechanism": "SCRAM-SHA-1",
-    #     },
-    # }
-
 }
 
 # Password validation
